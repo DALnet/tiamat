@@ -1,0 +1,19 @@
+{{define "root"}}<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiamat - Login</title>
+</head>
+<body>
+{{if .ErrorMsg}}
+Error: {{.ErrorMsg}}<br>
+{{end}}
+Please Login!<br><br>
+<form method="post">
+Nick: <input id="ircnick" name="ircnick" type="text">
+<br>
+<input id="submit1" name="submit1" type="submit" value="Login!">
+</form>
+</body>
+</html>{{end}}
