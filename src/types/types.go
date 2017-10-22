@@ -9,6 +9,14 @@ import (
   "html/template"
 )
 
+const (
+  NICKLEN = 30
+  USERLEN = 10
+  HOSTLEN = 63
+  REALLEN = 50
+  TOPICLEN = 307
+)
+
 type Page struct {
     Title string
     Body  []byte
