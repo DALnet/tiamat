@@ -30,9 +30,16 @@ type UserInfo struct {
   Email string
 }
 
-type NickType struct {
+type ClientType struct {
   Nick string
   User string
   Host string
+  Server string
   CookieKey string
+}
+
+type ServerType struct {
+  Name string
+  Desc string
+  Uplink string
 }
