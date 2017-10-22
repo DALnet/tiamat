@@ -117,12 +117,12 @@ func check_auth(w http.ResponseWriter, req *http.Request, p *types.Page, userinf
   req.ParseForm()
   /* If we got a POST request, let's check it first... */
   if req.FormValue("ircnick") != "" {
-    if(mem.FindNick(req.FormValue("ircnick"))) {
+    if(mem.Find_Client(req.FormValue("ircnick")) != nil) {
       p.ErrorMsg = "Nickname already in use";
       return
     }
     userinfo.User = req.FormValue("ircnick")
-    n := mem.AddNick(userinfo.User, "", req.RemoteAddr)
+    n := mem.New_Client(userinfo.User, "", req.RemoteAddr)
     skey, _ := GenerateRandomString(10)
     n.CookieKey = skey
     var cookie_user http.Cookie
@@ -143,8 +143,8 @@ func check_auth(w http.ResponseWriter, req *http.Request, p *types.Page, userinf
   }
 
   /* Check if we have a valid cookie... */
-  if cookie_user != nil && mem.FindNick(cookie_user.Value) {
-    n := mem.GetNick(cookie_user.Value)
+  if cookie_user != nil && mem.Find_Client(cookie_user.Value) != nil {
+    n := mem.Find_Client(cookie_user.Value)
     if (n.CookieKey == cookie_key.Value) {
       userinfo.User = n.Nick
     }
@@ -221,7 +221,7 @@ func http_listen() {
 
 func main() {
   fmt.Println("Running Tiamat v" + MY_VERSION)
-  conf.Init()
+  conf.Init(MY_VERSION)
   conf.Load()
   myconfig = conf.Get()
   mem.Init()
@@ -274,6 +274,7 @@ func main() {
   if err != nil {
     log.Fatal("Error: ", err)
   }
+  bahamut.Connect_time = time.Now()
   fmt.Println("Done.");
   go http_listen()
   line := ""
