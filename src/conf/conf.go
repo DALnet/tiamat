@@ -22,11 +22,12 @@ type ConfigType struct {
   UplinkPort string
   UplinkPass string
   CookieDomain string
+  Version string
 }
 
 var Config ConfigType
 
-func Init() {
+func Init(my_version string) {
   Config.ServerName = ""
   Config.ServerDesc = ""
   Config.HttpPortInt = 8080
@@ -37,6 +38,7 @@ func Init() {
   Config.UplinkPort = ""
   Config.UplinkPass = ""
   Config.CookieDomain = ""
+  Config.Version = my_version
 }
 
 func Load() (res bool) {
