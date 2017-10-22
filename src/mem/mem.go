@@ -34,6 +34,10 @@ func New_Client(nick string, user string, host string) (*types.ClientType) {
   return n
 }
 
+func Del_Client(nick string) {
+  delete(clients, nick)
+}
+
 func New_Server(name string, desc string) (*types.ServerType) {
   n := new(types.ServerType)
   n.Name = name
