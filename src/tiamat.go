@@ -21,6 +21,7 @@ import (
   types "./types"
   mem "./mem"
   bahamut "./bahamut"
+  funcs "./funcs"
 )
 
 const (
@@ -119,6 +120,10 @@ func check_auth(w http.ResponseWriter, req *http.Request, p *types.Page, userinf
   if req.FormValue("ircnick") != "" {
     if(mem.Find_Client(req.FormValue("ircnick")) != nil) {
       p.ErrorMsg = "Nickname already in use";
+      return
+    }
+    if !funcs.IsValidNick(req.FormValue("ircnick")) {
+      p.ErrorMsg = "Invalid nickname provided";
       return
     }
     userinfo.User = req.FormValue("ircnick")
