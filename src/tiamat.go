@@ -79,11 +79,6 @@ func (t *Templates) Get(key string) (tmpl *template.Template) {
     return t.tmpl[key]
 }
 
-func getunixtime() (res int32) {
-  res = int32(time.Now().Unix())
-  return
-}
-
 // GenerateRandomBytes returns securely generated random bytes. 
 // It will return an error if the system's secure random
 // number generator fails to function correctly, in which
