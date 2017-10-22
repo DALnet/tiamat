@@ -130,6 +130,23 @@ func got_nick(server *types.ServerType, client *types.ClientType, parv[MAX_PARAM
   }
 }
 
+/* got_quit
+ * parv[0] = nick
+ * parv[1] = reason
+ */
+func got_quit(server *types.ServerType, client *types.ClientType, parv[MAX_PARAMS+1] string, parc int) {
+  mem.Del_Client(parv[0])
+}
+
+/* got_kill
+ * parv[0] = sender
+ * parv[1] = target nick
+ * parv[2] = sourceserver!sourcehost!sourcenick (reason)
+ */
+func got_kill(server *types.ServerType, client *types.ClientType, parv[MAX_PARAMS+1] string, parc int) {
+  mem.Del_Client(parv[1])
+}
+
 type BahamutFunc func(server *types.ServerType, client *types.ClientType, parv[MAX_PARAMS+1] string, parc int)
 
 func Parser(d net.Conn, msg string) {
@@ -152,6 +169,8 @@ func Parser(d net.Conn, msg string) {
     "SERVER": got_server,
     "INFO": got_info,
     "NICK": got_nick,
+    "QUIT": got_quit,
+    "KILL": got_kill,
   }
 
   cur_param := 0
